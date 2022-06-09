@@ -105,7 +105,7 @@ import Foundation
 func randomN(_ max: UInt32) -> UInt32 {
 #if os(Linux)
     srandom(UInt32(time(nil)))
-    return UInt32(random() % max)
+    return UInt32(random() % Int(max))
 #else
 return arc4random_uniform(max)
 #endif
