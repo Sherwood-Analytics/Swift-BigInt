@@ -102,12 +102,14 @@
 
 import Foundation
 
+func randomN(_ max: UInt32) -> UInt32 {
 #if os(Linux)
-func arc4random_uniform(_ max: Int) -> Int {
     srandom(UInt32(time(nil)))
-    return Int(random() % max)
-}
+    return UInt32(random() % max)
+#else
+return arc4random_uniform(max)
 #endif
+}
 
 
 //	MARK: - Typealiases
@@ -2104,8 +2106,8 @@ internal class BIntMath
 
 		for i in 0..<Int(limbs)
 		{
-			res[i] = Limb(arc4random_uniform(UInt32.max)) |
-				(Limb(arc4random_uniform(UInt32.max)) << 32)
+			res[i] = Limb(randomN(UInt32.max)) |
+				(Limb(randomN(UInt32.max)) << 32)
 		}
 
 		if singleBits > 0
@@ -2114,17 +2116,17 @@ internal class BIntMath
 
 			if singleBits < 32
 			{
-				last = Limb(arc4random_uniform(UInt32(2 ** singleBits)))
+				last = Limb(randomN(UInt32(2 ** singleBits)))
 
 			}
 			else if singleBits == 32
 			{
-				last = Limb(arc4random_uniform(UInt32.max))
+				last = Limb(randomN(UInt32.max))
 			}
 			else
 			{
-				last = Limb(arc4random_uniform(UInt32.max)) |
-					(Limb(arc4random_uniform(UInt32(2.0 ** (singleBits - 32)))) << 32)
+				last = Limb(randomN(UInt32.max)) |
+					(Limb(randomN(UInt32(2.0 ** (singleBits - 32)))) << 32)
 			}
 			if last != 0 { res.append(last) }
 		}

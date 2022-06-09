@@ -200,7 +200,7 @@ public class math
 		let offset = Int(range.lowerBound)
 		let delta = UInt32(range.upperBound - range.lowerBound)
 
-		return offset + Int(arc4random_uniform(delta))
+		return offset + Int(randomN(delta))
 	}
 
 	/// Returns a random integer within the specified closed range.
