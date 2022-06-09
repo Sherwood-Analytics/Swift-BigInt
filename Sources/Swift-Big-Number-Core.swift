@@ -102,6 +102,14 @@
 
 import Foundation
 
+#if os(Linux)
+func arc4random_uniform(_ max: Int) -> Int {
+    srandom(UInt32(time(nil)))
+    return Int(random() % max)
+}
+#endif
+
+
 //	MARK: - Typealiases
 //	————————————————————————————————————————————————————————————————————————————————————————————
 //	||||||||        Typealiases        |||||||||||||||||||||||||||||||||||||||||||||||||||||||||
