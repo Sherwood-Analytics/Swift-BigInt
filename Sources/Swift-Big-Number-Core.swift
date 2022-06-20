@@ -231,20 +231,7 @@ public struct BInt:
 	public var sizeDescription: String
 	{
 		// One bit for the sign, plus the size of the limbs.
-        if #available(iOS 13.0, macOS 10.15, *) {
-            typealias Storage = Measurement<UnitInformationStorage>
-            let bytes = Storage(value: Double(self.size), unit: .bits).converted(to: .bytes)
-            if bytes < Storage(value: 1, unit: .kilobytes) {
-                return bytes.description
-            }
-            if bytes < Storage(value: 1, unit: .megabytes) {
-                return bytes.converted(to: .kilobytes).description
-            }
-            if bytes < Storage(value: 1, unit: .gigabytes) {
-                return bytes.converted(to: .megabytes).description
-            }
-            return bytes.converted(to: .gigabytes).description
-        } else {
+        
             // Fallback on earlier versions
             let bytes = Double(self.size) / 8.0
             let KB = 1_000.0, MB = KB * KB, GB = KB * KB * KB
@@ -261,7 +248,7 @@ public struct BInt:
                 return String(format: "%.1f MB", bytes / MB)
             }
             return String(format: "%.1f GB", bytes / GB)
-        }
+        
 	}
 
 	//
